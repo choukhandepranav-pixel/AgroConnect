@@ -1,0 +1,22 @@
+{
+  "name": "webhack",
+  "version": "1.0.0",
+  "description": "AgroConnect is a hackathon project that connects **Farmers** with **Krushi Adhikari** through a simple web portal.   Farmers can register, log in, and submit crop problems. Krushi Adhikari can review requests, approve or reject them, and send back detailed advice and recommended fertilizers. All solved cases are stored and shown as FAQ for learning.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "mysql2": "^3.18.2"
+  }
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroConnect</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">🌾 AgroConnect</div>
+
+<nav class="nav-links" id="navMenu">
+<a href="#" data-key="nav_home">Home</a>
+<a href="farmer.html" data-key="nav_farmer">Farmer</a>
+<a href="krushi.html" data-key="nav_krushi">Krushi Adhikari</a>
+<a href="fertilizers.html" data-key="nav_fertilizers">Fertilizers</a>
+<a href="faq.html" data-key="nav_faq">FAQ</a>
+</nav>
+
+<div class="nav-buttons" id="navButtons">
+<a href="login.html" class="login">Login</a>
+<a href="register.html" class="register">Register</a>
+</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<!-- PROFILE MENU -->
+<div class="profile-menu" id="profileMenu" style="display:none">
+
+<div class="profile-icon">
+<img src="https://i.imgur.com/6VBx3io.png" id="profileImg">
+</div>
+
+<div class="profile-dropdown" id="dropdownMenu">
+
+<label class="upload-option">
+📤 Upload Profile Image
+<input type="file" id="profileUpload" hidden>
+</label>
+
+<hr>
+
+<!-- 🌐 LANGUAGE SELECT (ONLY HERE) -->
+<div class="lang-box">
+<p>🌐 Language</p>
+<select id="languageSwitcher" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिंदी</option>
+<option value="mr">मराठी</option>
+</select>
+</div>
+
+<hr>
+
+<a href="#" id="logoutBtn">🚪 Logout</a>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+<div class="hero-content">
+
+<h1 data-key="hero_title">Smart Agriculture Help System</h1>
+
+<p data-key="hero_desc">
+Upload crop problems and get expert advice instantly.
+</p>
+
+<button onclick="location.href='register.html'" data-key="get_started">
+Get Started
+</button>
+
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+
+</section><section class="features">
+
+<h2>Our Features</h2>
+
+<div class="feature-container">
+
+<div class="feature-card">
+<h3>🌱 Crop Problem Upload</h3>
+<p>Farmers can upload crop issues with images and descriptions.</p>
+</div>
+
+<div class="feature-card">
+<h3>🧑‍🌾 Krushi Adhikari Support</h3>
+<p>Agriculture officers review problems and provide solutions.</p>
+</div>
+
+<div class="feature-card">
+<h3>📊 Smart Farming</h3>
+<p>Digital platform connecting farmers with agriculture experts.</p>
+</div>
+<div class="feature-card">
+<h3>🌿 Crop Disease Detection</h3>
+<p>This website helps farmers detect crop diseases using AI and provides information about treatment and prevention.</p>
+</div>
+
+<div class="feature-card">
+<h3>🌦 Weather Information</h3>
+<p>Farmers can check weather conditions to make better farming decisions and protect crops.</p>
+</div>
+
+<div class="feature-card">
+<h3>📊 Farm Data Graph</h3>
+<p>Visual graphs show crop health, fertilizer usage, and farming insights for better analysis.</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- ANALYSIS -->
+<section class="analysis-section">
+
+<h2 class="analysis-title">📊 Farm Analysis</h2>
+
+<div class="chart-card">
+
+<div class="chart-box">
+<canvas id="farmChart"></canvas>
+</div>
+
+<div class="weather-mini">
+
+<input type="text" id="cityInput" placeholder="Search city...">
+<button onclick="getWeather()">Search</button>
+<button onclick="getLocationWeather()">📍 Use My Location</button>
+
+<div class="weather-info">
+<h3 id="temp">--°C</h3>
+<p id="condition">Weather</p>
+
+<div class="details">
+<span>💧 <span id="humidity">--%</span></span>
+<span>🌬 <span id="wind">-- km/h</span></span>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+
+<h2 data-key="about_title">About AgroConnect</h2>
+
+<p data-key="about_desc">
+AgroConnect helps farmers get expert advice quickly.
+</p>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>© 2026 AgroConnect 🌱</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

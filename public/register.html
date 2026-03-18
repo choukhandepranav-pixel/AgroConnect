@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Register - AgroConnect</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+
+
+body{
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+radial-gradient(circle at top,#020617,#0f172a,#020617);
+
+color:#e5e7eb;
+
+}
+
+/* ===== REGISTER CARD ===== */
+
+.register-card{
+
+width:100%;
+max-width:420px;
+
+background:linear-gradient(145deg,#0f172a,#020617);
+
+padding:45px;
+
+border-radius:20px;
+
+box-shadow:0 25px 60px rgba(0,0,0,0.8);
+
+border-top:none;
+
+text-align:center;
+
+}
+
+/* ===== TITLE ===== */
+
+.register-card h2{
+
+font-size:32px;
+
+color:#22c55e;
+
+margin-bottom:25px;
+
+font-weight:700;
+
+}
+
+/* ===== INPUT ===== */
+
+.register-card input,
+.register-card select{
+
+width:100%;
+
+padding:14px;
+
+margin-bottom:16px;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,0.08);
+
+background:#020617;
+
+color:white;
+
+font-size:14px;
+
+outline:none;
+
+transition:0.3s;
+
+}
+
+/* INPUT FOCUS */
+
+.register-card select:focus{
+
+background:white;
+color:#111;
+
+border-color:#22c55e;
+
+box-shadow:0 0 12px rgba(34,197,94,0.4);
+
+}
+
+/* SELECT TEXT FIX */
+
+.register-card select{
+color:#94a3b8;
+}
+
+/* ===== BUTTON ===== */
+
+.register-btn{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:40px;
+
+background:linear-gradient(135deg,#22c55e,#16a34a);
+
+color:white;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
+margin-top:5px;
+
+}
+
+/* BUTTON HOVER */
+
+.register-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 15px 35px rgba(34,197,94,0.5);
+
+}
+
+/* ===== MESSAGE ===== */
+
+#msg{
+
+margin-top:12px;
+
+color:#f87171;
+
+font-size:14px;
+
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+
+margin-top:20px;
+
+font-size:14px;
+
+color:#94a3b8;
+
+}
+
+.footer a{
+
+color:#22c55e;
+
+font-weight:600;
+
+text-decoration:none;
+
+transition:0.3s;
+
+}
+
+.footer a:hover{
+
+color:white;
+
+text-decoration:underline;
+
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:600px){
+
+.register-card{
+margin:20px;
+padding:35px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="register-card">
+
+<h2>Create Account</h2>
+
+<form id="registerForm">
+
+<input type="text" id="name" placeholder="Full Name" required>
+
+<input type="text" id="mobile" placeholder="Mobile" required>
+
+<input type="text" id="location" placeholder="Village / City" required>
+
+<select id="role" required>
+
+<option value="">Select Role</option>
+<option value="farmer">Farmer</option>
+<option value="admin">Admin</option>
+<option value="krushi">Krushi Adhikari</option>
+
+</select>
+
+<input type="email" id="email" placeholder="Email" required>
+
+<input type="password" id="password" placeholder="Password" required>
+
+<button type="submit" class="register-btn">Register</button>
+
+</form>
+
+<p id="msg"></p>
+
+<div class="footer">
+
+Already have an account?
+
+<a href="login.html">Login</a>
+
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("registerForm").addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const name = document.getElementById("name").value;
+const mobile = document.getElementById("mobile").value;
+const location = document.getElementById("location").value;
+const role = document.getElementById("role").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+const res = await fetch("/api/register",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify({
+name,
+mobile,
+location,
+role,
+email,
+password
+})
+
+});
+
+const data = await res.json();
+
+document.getElementById("msg").innerText = data.message;
+
+if(res.ok){
+
+setTimeout(()=>{
+
+window.location.href="login.html";
+
+},1500);
+
+}
+
+});
+
+</script>
+
+</body>
+
+</html>

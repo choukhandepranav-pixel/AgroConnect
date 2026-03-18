@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Agriculture Store Dashboard</title>
+
+<link rel="stylesheet" href="store.css">
+
+</head>
+
+<body>
+
+<header>
+<h1>🏪 Agriculture Store Dashboard</h1>
+<button onclick="logoutStore()" class="logout-btn">Logout</button>
+</header>
+
+
+<section class="store-info">
+
+<h2>Store Information</h2>
+
+<p><b>Name:</b> <span id="pname"></span></p>
+<p><b>Mobile:</b> <span id="pmobile"></span></p>
+<p><b>Email:</b> <span id="pemail"></span></p>
+
+</section>
+
+
+<section class="orders">
+
+<h2>🌾 Farmer Orders</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Farmer Name</th>
+<th>Mobile</th>
+<th>Address</th>
+<th>Fertilizer</th>
+<th>Quantity</th>
+<th>Price</th>
+</tr>
+</thead>
+
+<tbody id="orderList"></tbody>
+
+</table>
+
+</section>
+
+
+<section class="bill">
+
+<h2>🧾 Total Bill</h2>
+
+<div id="bill"></div>
+
+</section>
+
+
+<footer>
+
+<p>
+Store Address: Krushi Seva Kendra, Main Market Road, Nagpur
+</p>
+
+</footer>
+
+
+<script src="store.js"></script>
+
+</body>
+</html>

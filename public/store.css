@@ -1,0 +1,316 @@
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+min-height:100vh;
+
+}
+
+
+/* HEADER */
+
+header{
+
+background:linear-gradient(90deg,#1b5e20,#2e7d32);
+
+color:white;
+padding:20px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+
+}
+
+header h1{
+
+font-size:26px;
+letter-spacing:1px;
+
+}
+
+
+/* LOGOUT BUTTON */
+
+.logout-btn{
+
+background:white;
+color:#2e7d32;
+
+border:none;
+padding:10px 18px;
+
+border-radius:8px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+.logout-btn:hover{
+
+background:#f1f1f1;
+transform:scale(1.05);
+
+}
+
+
+/* FORM BOX (LOGIN / REGISTER) */
+
+.form-box{
+
+width:380px;
+margin:120px auto;
+
+padding:35px;
+
+background:rgba(255,255,255,0.85);
+
+border-radius:15px;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+
+backdrop-filter:blur(8px);
+
+text-align:center;
+
+}
+
+.form-box h2{
+
+color:#2e7d32;
+margin-bottom:20px;
+
+}
+
+
+/* INPUT */
+
+input{
+
+width:100%;
+padding:12px;
+margin:10px 0;
+
+border-radius:8px;
+border:1px solid #ccc;
+
+font-size:14px;
+
+transition:0.3s;
+
+}
+
+input:focus{
+
+border-color:#2e7d32;
+outline:none;
+
+box-shadow:0 0 8px rgba(46,125,50,0.4);
+
+}
+
+
+/* BUTTON */
+
+button{
+
+width:100%;
+padding:12px;
+
+background:linear-gradient(90deg,#43a047,#2e7d32);
+
+color:white;
+
+border:none;
+border-radius:8px;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:0.3s;
+
+margin-top:10px;
+
+}
+
+button:hover{
+
+transform:scale(1.05);
+background:linear-gradient(90deg,#2e7d32,#1b5e20);
+
+}
+
+
+/* STORE PROFILE CARD */
+
+.profile-box{
+
+width:90%;
+max-width:600px;
+
+background:white;
+
+margin:30px auto;
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+.profile-box h2{
+
+color:#2e7d32;
+margin-bottom:15px;
+
+}
+
+.profile-box p{
+
+font-size:16px;
+margin:8px 0;
+
+}
+
+
+/* ORDER SECTION */
+
+.order-section{
+
+width:95%;
+max-width:1000px;
+
+margin:30px auto;
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+}
+
+.order-section h2{
+
+margin-bottom:15px;
+color:#2e7d32;
+
+}
+
+
+/* ORDER TABLE */
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+margin-top:10px;
+
+}
+
+th,td{
+
+padding:12px;
+text-align:center;
+
+border-bottom:1px solid #ddd;
+
+}
+
+th{
+
+background:#2e7d32;
+color:white;
+
+}
+
+tr:hover{
+
+background:#f1f8f4;
+
+}
+
+
+/* BILL SECTION */
+
+.bill-section{
+
+width:95%;
+max-width:800px;
+
+margin:30px auto;
+
+background:white;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+font-size:18px;
+
+}
+
+.bill-section h2{
+
+color:#2e7d32;
+margin-bottom:15px;
+
+}
+
+
+/* STORE ADDRESS */
+
+.store-address{
+
+margin-top:20px;
+font-weight:bold;
+color:#333;
+
+}
+
+
+/* MESSAGE TEXT */
+
+#msg,
+#loginMsg{
+
+color:red;
+margin-top:10px;
+
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+header{
+flex-direction:column;
+gap:10px;
+}
+
+table{
+font-size:14px;
+}
+
+}

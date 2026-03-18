@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Krushi Adhikari Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="krushi.css">
+
+<script>
+// 🔐 AUTH PROTECTION
+document.addEventListener("DOMContentLoaded", function () {
+  const user = JSON.parse(localStorage.getItem("agroUser") || "null");
+
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  if (user.role !== "krushi") {
+    window.location.href = "index.html";
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<!-- ================= SIDEBAR ================= -->
+<div class="sidebar">
+  <h2>🌾 KrushiAdhikari</h2>
+
+  <ul>
+    <li onclick="showSection('dashboard')">🏠 Dashboard</li>
+    <li onclick="showSection('complaints')">📩 Farmer Complaints</li>
+    <li onclick="showSection('solved')">✅ Solved Problems</li>
+    <li onclick="showSection('reports')">📄 Reports</li>
+  </ul>
+</div>
+
+<!-- ================= MAIN ================= -->
+<div class="main">
+
+<!-- ================= TOPBAR ================= -->
+<div class="topbar">
+
+  <div class="left">
+    <h2>🌾 Krushi Dashboard</h2>
+  </div>
+
+  <div class="right">
+
+    <div class="icon">🔔</div>
+
+    <div class="profile" onclick="toggleProfile()">
+
+      <img id="profileImage" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+      <span id="username">User</span>
+
+      <div class="dropdown" id="profileDropdown">
+
+        <p onclick="goProfile()">👤 My Profile</p>
+        <p onclick="logout()">🚪 Logout</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" class="section">
+
+  <h1>Krushi Adhikari Dashboard</h1>
+  <p>Monitor farmers activities and manage crop reports.</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <h2 id="totalFarmers">0</h2>
+      <p>Total Farmers</p>
+    </div>
+
+    <div class="card">
+      <h2>42</h2>
+      <p>Disease Reports</p>
+    </div>
+
+    <div class="card">
+      <h2 id="pendingCount">0</h2>
+      <p>Pending Complaints</p>
+    </div>
+
+    <div class="card">
+      <h2 id="solvedCount">0</h2>
+      <p>Solved Problem</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= COMPLAINTS ================= -->
+<div id="complaints" class="section" style="display:none">
+
+  <h1>Farmer Complaints</h1>
+
+  <div class="filter-bar">
+
+  <input type="text" id="searchInput" placeholder="🔍 Search Farmer" onkeyup="searchFarmer()">
+
+  <select id="cropFilter" onchange="filterCrop()">
+    <option value="all">🌾 All Crops</option>
+    <option value="Cotton">Cotton</option>
+    <option value="Wheat">Wheat</option>
+    <option value="Sugarcane">Sugarcane</option>
+  </select>
+
+</div>
+
+  <h2>Pending Complaints</h2>
+  <div class="farmer-container"></div>
+
+</div>
+
+<!-- ================= SOLVED ================= -->
+<div id="solved" class="section" style="display:none">
+
+  <h1>Solved Problems</h1>
+  <div class="solved-container"></div>
+
+</div>
+
+<!-- ================= REPORT ================= -->
+<div id="reports" class="section" style="display:none">
+
+  <h1>📊 Agriculture Reports</h1>
+
+  <div class="report-cards">
+
+    <div class="report-card">
+      <h3>🌾 Total Complaints</h3>
+      <p id="reportTotal">0</p>
+    </div>
+
+    <div class="report-card">
+      <h3>⏳ Pending</h3>
+      <p id="reportPending">0</p>
+    </div>
+
+    <div class="report-card">
+      <h3>✅ Solved</h3>
+      <p id="reportSolved">0</p>
+    </div>
+
+  </div>
+
+  <div class="charts">
+    <div class="chart-box">
+      <h3>Complaint Status</h3>
+      <canvas id="reportChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+</div> <!-- END MAIN -->
+</div> <!-- END DASHBOARD -->
+
+<!-- ✅ JS AT END (IMPORTANT) -->
+<script src="krushi.js"></script>
+
+</body>
+</html>

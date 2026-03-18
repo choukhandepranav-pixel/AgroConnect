@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Farmer Dashboard</title>
+
+<link rel="stylesheet" href="stylef.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script>
+// Protect farmer dashboard: only logged-in farmer can open
+document.addEventListener("DOMContentLoaded", function () {
+  const user = JSON.parse(localStorage.getItem("agroUser") || "null");
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+  if (user.role !== "farmer") {
+    window.location.href = "index.html";
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="sidebar-header">🌾 Farmer</div>
+
+<ul class="menu">
+
+<li onclick="showSection('dashboard',this)" class="active">🏠 Dashboard</li>
+
+<li onclick="showSection('issue',this)">📤 Send Crop Issue</li>
+
+<li onclick="showSection('requests',this)">📋 My Requests</li>
+
+<li onclick="showSection('consultant',this)">🌾 Agriculture Consultant</li>
+
+<li onclick="showSection('reviews',this)">⭐ Farmer Reviews</li>
+
+</ul>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topbar">
+
+<h2>Farmer Portal</h2>
+
+<div class="profile-menu">
+
+<img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+onclick="toggleProfile()">
+
+<div class="dropdown" id="profileDropdown">
+
+<p id="farmerName">👤 Farmer Name</p>
+
+<a href="index.html">🏠 Home</a>
+
+<button onclick="logout()">Logout</button>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="section active">
+
+<h2>Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Issues</h3>
+<p id="totalIssues">0</p>
+</div>
+
+<div class="card">
+<h3>Pending</h3>
+<p id="pendingIssues">0</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ISSUE FORM -->
+
+<div id="issue" class="section">
+
+<h2>Send Crop Issue</h2>
+
+<section class="form-section">
+
+<form id="issueForm" enctype="multipart/form-data" class="glass-form">
+
+<h2>Farmer Details</h2>
+
+<input type="text" name="farmerName" placeholder="Farmer Name" required>
+
+<input type="text" name="village" placeholder="Village" required>
+
+<label>Aadhaar Number</label>
+
+<input type="text" id="aadhar" placeholder="Enter 12-digit Aadhaar number" maxlength="12" required>
+
+<label>Mobile Number</label>
+
+<input id="mobile" type="tel" placeholder="Mobile Number" required>
+
+<button type="button" onclick="sendOTP()">Send OTP</button>
+
+<label>Enter OTP</label>
+
+<input type="text" id="otp" placeholder="Enter OTP">
+
+<button type="button" onclick="verifyOTP()">Verify OTP</button>
+
+<p id="message"></p>
+
+<h2>Crop Details</h2>
+
+<label>Select Crop</label>
+
+<select id="cropSelect" onchange="toggleOtherCrop()" required>
+
+<option value="">-- Select Crop --</option>
+<option>Rice</option>
+<option>Wheat</option>
+<option>Maize</option>
+<option>Sugarcane</option>
+<option>Cotton</option>
+<option>Soybean</option>
+<option>Tur</option>
+<option>Chana</option>
+<option>Groundnut</option>
+<option>Mustard</option>
+<option>Mango</option>
+<option>Banana</option>
+<option>Tomato</option>
+<option>Onion</option>
+<option value="Other">Other</option>
+
+</select>
+
+<input type="text" id="otherCrop" placeholder="Enter Crop Name" style="display:none;">
+
+<textarea id="issueText" placeholder="Describe crop problem" required></textarea>
+
+<!-- IMAGE UPLOAD -->
+
+<label>Upload Crop Image</label>
+
+<input type="file" id="cropImage" accept="image/*">
+
+<img id="previewImage" style="width:120px;margin-top:10px;display:none;border-radius:8px;">
+
+<button type="submit">Submit Issue</button>
+
+</form>
+
+</section>
+
+</div>
+
+
+<!-- REQUESTS -->
+
+<div id="requests" class="section">
+
+<h2>My Requests</h2>
+
+<table id="requestTable">
+
+<tr>
+<th>Name</th>
+<th>Village</th>
+<th>Crop</th>
+<th>Issue</th>
+<th>Status</th>
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- AGRICULTURE CONSULTANT -->
+
+<div id="consultant" class="section">
+
+<h2>🌾 Agriculture Consultant Advice</h2>
+
+<table id="adviceTable">
+
+<tr>
+<th>Officer</th>
+<th>Crop</th>
+<th>Advice</th>
+<th>Date</th>
+</tr>
+
+</table>
+
+</div>
+
+
+<!-- REVIEWS -->
+
+<div id="reviews" class="section">
+
+<h2>Other Farmers Reviews</h2>
+
+<table id="reviewTable">
+
+<tr>
+<th>Farmer</th>
+<th>Village</th>
+<th>Issue</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Rahul Patil</td>
+<td>Nagpur</td>
+<td>Cotton Pest</td>
+<td>Resolved</td>
+</tr>
+
+<tr>
+<td>Suresh Kale</td>
+<td>Wardha</td>
+<td>Low Yield</td>
+<td>In Review</td>
+</tr>
+
+</table>
+
+<button class="add-review-btn" onclick="toggleReviewForm()">
++ Add Review
+</button>
+
+<div class="review-form" id="reviewForm">
+
+<input type="text" id="reviewFarmer" placeholder="Farmer Name">
+
+<input type="text" id="reviewVillage" placeholder="Village">
+
+<textarea id="reviewIssue" placeholder="Describe Issue"></textarea>
+
+<select id="reviewStatus">
+<option>Pending</option>
+<option>In Review</option>
+<option>Resolved</option>
+</select>
+
+<button onclick="addReview()">Submit Review</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="scriptf.js"></script>
+
+</body>
+</html>

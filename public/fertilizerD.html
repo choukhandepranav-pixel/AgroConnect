@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AgroConnect Fertilizer Dashboard</title>
+
+<link rel="stylesheet" href="fertilizerD.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+    <!-- Sidebar -->
+
+<div class="sidebar">
+
+<h2>🌾 AgroConnect</h2>
+
+<ul>
+
+<li class="active">Fertilizers</li>
+
+</ul>
+
+</div>
+
+
+
+
+<!-- Main Content -->
+
+<div class="main">
+
+<header>
+
+<h1>Fertilizer Dashboard</h1>
+
+<input type="text" id="search" placeholder="🔍 Search fertilizer..." onkeyup="searchFertilizer()">
+
+</header>
+
+
+<section class="cards">
+
+<div class="card">
+<h3>Total Fertilizers</h3>
+<p>20</p>
+</div>
+
+<div class="card">
+<h3>Organic</h3>
+<p>10</p>
+</div>
+
+<div class="card">
+<h3>Chemical</h3>
+<p>10</p>
+</div>
+
+<div class="card">
+<h3>Top Rated</h3>
+<p>Bio Fertilizer</p>
+</div>
+
+</section>
+
+
+<section class="table-section">
+
+<h2>Available Fertilizers</h2>
+
+<table id="fertilizerTable">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Crop</th>
+<th>Rating</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Urea</td>
+<td>Chemical</td>
+<td>Rice</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Urea')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Compost</td>
+<td>Organic</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Compost')">Provide</button></td>
+</tr>
+
+<tr>
+<td>NPK</td>
+<td>Chemical</td>
+<td>Maize</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('NPK')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Vermicompost</td>
+<td>Organic</td>
+<td>Fruits</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Vermicompost')">Provide</button></td>
+</tr>
+<tbody>
+
+<!-- Chemical Fertilizers -->
+
+<tr>
+<td>Urea</td>
+<td>Chemical Fertilizer</td>
+<td>Rice</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Urea')">Provide</button></td>
+</tr>
+
+<tr>
+<td>DAP (Di-Ammonium Phosphate)</td>
+<td>Chemical Fertilizer</td>
+<td>Wheat</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('DAP')">Provide</button></td>
+</tr>
+
+<tr>
+<td>NPK</td>
+<td>Chemical Fertilizer</td>
+<td>Maize</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('NPK')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Potash</td>
+<td>Chemical Fertilizer</td>
+<td>Potato</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Potash')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Ammonium Sulfate</td>
+<td>Chemical Fertilizer</td>
+<td>Tea</td>
+<td>⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Ammonium Sulfate')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Calcium Nitrate</td>
+<td>Chemical Fertilizer</td>
+<td>Tomato</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Calcium Nitrate')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Magnesium Sulfate</td>
+<td>Chemical Fertilizer</td>
+<td>Banana</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Magnesium Sulfate')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Zinc Sulfate</td>
+<td>Chemical Fertilizer</td>
+<td>Wheat</td>
+<td>⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Zinc Sulfate')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Single Super Phosphate</td>
+<td>Chemical Fertilizer</td>
+<td>Groundnut</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('SSP')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Ammonium Nitrate</td>
+<td>Chemical Fertilizer</td>
+<td>Cotton</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Ammonium Nitrate')">Provide</button></td>
+</tr>
+
+<!-- Organic Fertilizers -->
+
+<tr>
+<td>Compost</td>
+<td>Organic Fertilizer</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Compost')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Vermicompost</td>
+<td>Organic Fertilizer</td>
+<td>Fruits</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Vermicompost')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Bone Meal</td>
+<td>Organic Fertilizer</td>
+<td>Flowers</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Bone Meal')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Seaweed Fertilizer</td>
+<td>Organic Fertilizer</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Seaweed Fertilizer')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Neem Cake</td>
+<td>Organic Fertilizer</td>
+<td>Rice</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Neem Cake')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Fish Emulsion</td>
+<td>Organic Fertilizer</td>
+<td>Leafy Vegetables</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Fish Emulsion')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Green Manure</td>
+<td>Organic Fertilizer</td>
+<td>Pulses</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Green Manure')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Poultry Manure</td>
+<td>Organic Fertilizer</td>
+<td>Maize</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Poultry Manure')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Cow Dung Manure</td>
+<td>Organic Fertilizer</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Cow Dung Manure')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Bio Fertilizer</td>
+<td>Bio Fertilizer</td>
+<td>Pulses</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Bio Fertilizer')">Provide</button></td>
+</tr>
+
+<!-- Insecticides / Pesticides -->
+
+<tr>
+<td>Neem Oil Spray</td>
+<td>Insecticide</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Neem Oil Spray')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Chlorpyrifos</td>
+<td>Insecticide</td>
+<td>Rice</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Chlorpyrifos')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Imidacloprid</td>
+<td>Insecticide</td>
+<td>Cotton</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Imidacloprid')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Cypermethrin</td>
+<td>Insecticide</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Cypermethrin')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Spinosad</td>
+<td>Bio Insecticide</td>
+<td>Fruits</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('Spinosad')">Provide</button></td>
+</tr>
+
+<tr>
+<td>Bacillus Thuringiensis</td>
+<td>Bio Insecticide</td>
+<td>Vegetables</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td><button onclick="provideFertilizer('BT')">Provide</button></td>
+</tr>
+
+</tbody>
+
+
+
+
+
+</section>
+
+</div>
+
+</div>
+
+<script src="fertilizersD.js"></script>
+
+</body>
+</html>
