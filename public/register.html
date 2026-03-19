@@ -225,13 +225,12 @@ padding:35px;
 <input type="text" id="location" placeholder="Village / City" required>
 
 <select id="role" required>
-
-<option value="">Select Role</option>
-<option value="farmer">Farmer</option>
-<option value="admin">Admin</option>
-<option value="krushi">Krushi Adhikari</option>
-
+  <option value="">Select Role</option>
+  <option value="farmer">Farmer</option>
+  <option value="admin">Admin</option>
+  <option value="krushi_adhikari">Krushi Adhikari</option>
 </select>
+<input type="text" id="agriId" placeholder="Enter Agriculture ID" style="display:none;">
 
 <input type="email" id="email" placeholder="Email" required>
 
@@ -254,53 +253,82 @@ Already have an account?
 </div>
 
 <script>
-
 document.getElementById("registerForm").addEventListener("submit", async function(e){
 
-e.preventDefault();
+  e.preventDefault();
 
-const name = document.getElementById("name").value;
-const mobile = document.getElementById("mobile").value;
-const location = document.getElementById("location").value;
-const role = document.getElementById("role").value;
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
+  const name = document.getElementById("name").value;
+  const mobile = document.getElementById("mobile").value;
+  const location = document.getElementById("location").value;
+  const role = document.getElementById("role").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const agriId = document.getElementById("agriId").value;
 
-const res = await fetch("/api/register",{
+  const res = await fetch("/api/register",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify({
+      name,
+      mobile,
+      location,
+      role,
+      email,
+      password,
+      agriId
+    })
+  });
 
-method:"POST",
+  const data = await res.json();
 
-headers:{
-"Content-Type":"application/json"
-},
+  document.getElementById("msg").innerText = data.message;
 
-body: JSON.stringify({
-name,
-mobile,
-location,
-role,
-email,
-password
-})
+  if(data.success){
+    setTimeout(()=>{
+      window.location.href="login.html";
+    },1500);
+  }
 
 });
 
-const data = await res.json();
+const roleSelect = document.getElementById("role");
+const agriIdField = document.getElementById("agriId");
 
-document.getElementById("msg").innerText = data.message;
+roleSelect.addEventListener("change", () => {
+  if(roleSelect.value === "krushi_adhikari"){
+    agriIdField.style.display = "block";
+  } else {
+    agriIdField.style.display = "none";
+  }
+});
+async function registerUser() {
 
-if(res.ok){
+  const data = {
+    name: document.getElementById("name").value,
+    mobile: document.getElementById("mobile").value,
+    village: document.getElementById("village").value,
+    role: document.getElementById("role").value,
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+    agriId: document.getElementById("agriId").value
+  };
 
-setTimeout(()=>{
+  const res = await fetch("/register", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
+  });
 
-window.location.href="login.html";
-
-},1500);
-
+  const result = await res.json();
+  alert(result.message);
 }
-
-});
-
+if(data.success){
+  setTimeout(()=>{
+    window.location.href="login.html";
+  },1500);
+}
 </script>
 
 </body>

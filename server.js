@@ -64,7 +64,7 @@ console.log(err);
 return res.status(500).json({message:"Registration failed"});
 }
 
-res.json({message:"Registration successful"});
+res.json({success: true, message:"Registration successful"});
 
 });
 
@@ -215,6 +215,48 @@ app.get("/api/my-requests", (req, res) => {
     });
 });
 
+app.post("/register", (req, res) => {
+  const { name, mobile, village, email, password, role, agriId } = req.body;
+
+  // 👉 If Krushi Adhikari
+  if(role === "krushi_adhikari"){
+
+    if(!agriId){
+      return res.json({ success: false, message: "Agri ID required" });
+    }
+
+    const check = "SELECT * FROM krushi_officers WHERE agri_id = ?";
+    
+    db.query(check, [agriId], (err, result) => {
+
+      if(result.length === 0){
+        return res.json({ success: false, message: "Invalid Agri ID ❌" });
+      }
+
+      const insert = `
+        INSERT INTO users (name, mobile, village, email, password, role, agri_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `;
+
+      db.query(insert, [name, mobile, village, email, password, role, agriId], () => {
+        res.json({ success: true, message: "Krushi Adhikari Registered ✅" });
+      });
+
+    });
+
+  } else {
+    // 👉 Farmer
+    const insert = `
+      INSERT INTO users (name, mobile, village, email, password, role)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(insert, [name, mobile, village, email, password, role], () => {
+      res.json({ success: true, message: "Farmer Registered ✅" });
+    });
+  }
+});
+
 /* Get advice for Agriculture Consultant (farmer page). Optional: ?mobile= to get advice for one farmer */
 
 app.get("/api/advice", (req, res) => {
@@ -298,3 +340,21 @@ res.json({ message: "Advice saved successfully" });
 });
 
 });
+async function registerUser() {
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+    role: document.getElementById("role").value,
+    agriId: document.getElementById("agriId").value
+  };
+
+  const res = await fetch("/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+  alert(result.message);
+}
