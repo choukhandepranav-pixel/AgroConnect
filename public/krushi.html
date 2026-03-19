@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  if (user.role !== "krushi") {
+  if (!user || (user.role !== "krushi_adhikari" && user.role !== "krushi")) {
     window.location.href = "index.html";
   }
 });

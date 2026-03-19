@@ -197,10 +197,19 @@ if(res.ok){
 
 localStorage.setItem("agroUser", JSON.stringify(data.user));
 
-window.location.href = "index.html";
+console.log("LOGIN DATA:", data); // debug
 
+if(data.role === "krushi_adhikari"){
+    window.location.href = "krushi.html";
+}
+else if(data.role === "farmer"){
+    window.location.href = "farmer.html";
+}
+else{
+    window.location.href = "admin.html";
 }
 
+}
 });
 
 

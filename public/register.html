@@ -265,33 +265,40 @@ document.getElementById("registerForm").addEventListener("submit", async functio
   const password = document.getElementById("password").value;
   const agriId = document.getElementById("agriId").value;
 
-  const res = await fetch("/api/register",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
-      name,
-      mobile,
-      location,
-      role,
-      email,
-      password,
-      agriId
-    })
-  });
+  try{
+    const res = await fetch("/api/register",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        name,
+        mobile,
+        location,
+        role,
+        email,
+        password,
+        agriId
+      })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  document.getElementById("msg").innerText = data.message;
+    document.getElementById("msg").innerText = data.message;
 
-  if(data.success){
-    setTimeout(()=>{
-      window.location.href="login.html";
-    },1500);
+    if(data.success){
+      setTimeout(()=>{
+        window.location.href="login.html";
+      },1500);
+    }
+
+  }catch(err){
+    document.getElementById("msg").innerText = "Server error ❌";
   }
 
 });
+
+/* Show/Hide Agri ID */
 
 const roleSelect = document.getElementById("role");
 const agriIdField = document.getElementById("agriId");
@@ -303,32 +310,7 @@ roleSelect.addEventListener("change", () => {
     agriIdField.style.display = "none";
   }
 });
-async function registerUser() {
 
-  const data = {
-    name: document.getElementById("name").value,
-    mobile: document.getElementById("mobile").value,
-    village: document.getElementById("village").value,
-    role: document.getElementById("role").value,
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
-    agriId: document.getElementById("agriId").value
-  };
-
-  const res = await fetch("/register", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(data)
-  });
-
-  const result = await res.json();
-  alert(result.message);
-}
-if(data.success){
-  setTimeout(()=>{
-    window.location.href="login.html";
-  },1500);
-}
 </script>
 
 </body>

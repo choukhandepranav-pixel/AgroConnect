@@ -117,7 +117,7 @@ if(user.role === "farmer" && krushiLink){
 krushiLink.style.display = "none";
 }
 
-if(user.role === "krushi" && farmerLink){
+if((user.role === "krushi_adhikari" || user.role === "krushi") && farmerLink){
 farmerLink.style.display = "none";
 }
 }

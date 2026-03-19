@@ -37,40 +37,6 @@ db.connect(err=>{
     }
 });
 
-/* Register */
-
-app.post("/api/register",(req,res)=>{
-const {name,mobile,location,role,email,password}=req.body;
-
-const check="SELECT * FROM users WHERE email=?";
-
-db.query(check,[email],(err,result)=>{
-
-if(err){
-console.log(err);
-return res.status(500).json({message:"Database error"});
-}
-
-if(result.length>0){
-return res.status(400).json({message:"Email already exists"});
-}
-
-const sql="INSERT INTO users(name,mobile,location,role,email,password) VALUES (?,?,?,?,?,?)";
-
-db.query(sql,[name,mobile,location,role,email,password],(err,result)=>{
-
-if(err){
-console.log(err);
-return res.status(500).json({message:"Registration failed"});
-}
-
-res.json({success: true, message:"Registration successful"});
-
-});
-
-});
-
-});
 /* Login */
 
 app.post("/api/login",(req,res)=>{
@@ -91,7 +57,6 @@ return res.status(401).json({message:"Invalid email or password"});
 }
 
 const user=result[0];
-
 res.json({
 message:"Login successful",
 role:user.role,
@@ -142,6 +107,7 @@ app.post("/api/reset-password", (req, res) => {
 });
 
 
+
 /* Multer Setup */
 
 const storage = multer.diskStorage({
@@ -183,9 +149,7 @@ app.post("/api/upload", upload.single("cropImage"), (req,res)=>{
 
 app.get("/api/requests",(req,res)=>{
 
-    const sql = "SELECT * FROM crops ORDER BY id DESC";
-
-    db.query(sql,(err,result)=>{
+const sql = "SELECT * FROM crops ORDER BY id DESC";    db.query(sql,(err,result)=>{
 
         if(err){
             console.log(err);
@@ -215,46 +179,54 @@ app.get("/api/my-requests", (req, res) => {
     });
 });
 
-app.post("/register", (req, res) => {
-  const { name, mobile, village, email, password, role, agriId } = req.body;
+app.post("/api/register",(req,res)=>{
 
-  // 👉 If Krushi Adhikari
-  if(role === "krushi_adhikari"){
+const {name,mobile,location,role,email,password,agriId}=req.body;
 
-    if(!agriId){
-      return res.json({ success: false, message: "Agri ID required" });
-    }
+const check="SELECT * FROM users WHERE email=?";
 
-    const check = "SELECT * FROM krushi_officers WHERE agri_id = ?";
-    
-    db.query(check, [agriId], (err, result) => {
+db.query(check,[email],(err,result)=>{
 
-      if(result.length === 0){
-        return res.json({ success: false, message: "Invalid Agri ID ❌" });
-      }
+if(result.length>0){
+return res.json({success:false,message:"Email already exists"});
+}
 
-      const insert = `
-        INSERT INTO users (name, mobile, village, email, password, role, agri_id)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `;
+/* 👉 KRUSHI ADHIKARI LOGIC */
+if(role==="krushi_adhikari"){
 
-      db.query(insert, [name, mobile, village, email, password, role, agriId], () => {
-        res.json({ success: true, message: "Krushi Adhikari Registered ✅" });
-      });
+if(!agriId){
+return res.json({success:false,message:"Agri ID required"});
+}
 
-    });
+db.query("SELECT * FROM krushi_officers WHERE agri_id=?",[agriId],(err2,result2)=>{
 
-  } else {
-    // 👉 Farmer
-    const insert = `
-      INSERT INTO users (name, mobile, village, email, password, role)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
+if(result2.length===0){
+return res.json({success:false,message:"Invalid Agri ID ❌"});
+}
 
-    db.query(insert, [name, mobile, village, email, password, role], () => {
-      res.json({ success: true, message: "Farmer Registered ✅" });
-    });
-  }
+db.query(
+"INSERT INTO users(name,mobile,location,role,email,password,agri_id) VALUES (?,?,?,?,?,?,?)",
+[name,mobile,location,role,email,password,agriId],
+()=>{
+res.json({success:true,message:"Krushi Adhikari Registered ✅"});
+});
+
+});
+
+}else{
+
+/* 👉 NORMAL USER */
+db.query(
+"INSERT INTO users(name,mobile,location,role,email,password) VALUES (?,?,?,?,?,?)",
+[name,mobile,location,role,email,password],
+()=>{
+res.json({success:true,message:"Registration successful"});
+});
+
+}
+
+});
+
 });
 
 /* Get advice for Agriculture Consultant (farmer page). Optional: ?mobile= to get advice for one farmer */
@@ -340,21 +312,4 @@ res.json({ message: "Advice saved successfully" });
 });
 
 });
-async function registerUser() {
-  const data = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
-    role: document.getElementById("role").value,
-    agriId: document.getElementById("agriId").value
-  };
 
-  const res = await fetch("/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-
-  const result = await res.json();
-  alert(result.message);
-}
